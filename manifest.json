@@ -2,7 +2,7 @@
   "name": "סדר תפילות ומנהגים",
   "short_name": "תפילות",
   "description": "ברכות השחר עדות המזרח, הנחת תפילין לספרדים, התיקון הכללי, נשמת כל חי",
-  "start_url": "./תפילות.html",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",

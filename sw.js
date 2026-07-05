@@ -1,6 +1,6 @@
 const CACHE_NAME = 'tefillot-v1';
 const ASSETS = [
-  './תפילות.html',
+  './index.html',
   './manifest.json',
   './icon.svg'
 ];
