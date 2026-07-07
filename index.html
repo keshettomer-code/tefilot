@@ -250,25 +250,28 @@ hr.divider {
   justify-content: center;
   gap: 11px;
   padding: 16px 0;
-  background: rgba(30,38,64,0.1);
+  background: transparent;
   border-radius: 6px 0 0 6px;
   cursor: pointer;
   transition: background 0.2s;
 }
 
-.section-nav-track:hover,
-.section-nav.open .section-nav-track { background: rgba(30,38,64,0.2); }
+.section-nav.open .section-nav-track { background: rgba(30,38,64,0.15); }
 
 .nav-dot {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: rgba(30,38,64,0.35);
+  background: transparent;
   transition: all 0.25s;
   flex-shrink: 0;
 }
 
-.nav-dot.active {
+.section-nav.open .nav-dot {
+  background: rgba(30,38,64,0.3);
+}
+
+.section-nav.open .nav-dot.active {
   background: var(--ink);
   height: 16px;
   border-radius: 3px;
