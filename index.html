@@ -232,6 +232,92 @@ hr.divider {
 .size-option-label { font-size: 14px; flex: 1; }
 .size-option-preview { opacity: 0.55; white-space: nowrap; }
 
+.section-nav {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 998;
+  display: flex;
+  align-items: center;
+}
+
+.section-nav-track {
+  width: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  padding: 16px 0;
+  background: rgba(30,38,64,0.1);
+  border-radius: 6px 0 0 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.section-nav-track:hover,
+.section-nav.open .section-nav-track { background: rgba(30,38,64,0.2); }
+
+.nav-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(30,38,64,0.35);
+  transition: all 0.25s;
+  flex-shrink: 0;
+}
+
+.nav-dot.active {
+  background: var(--ink);
+  height: 16px;
+  border-radius: 3px;
+}
+
+.section-nav-list {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 3px;
+  margin-right: 2px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(14px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.section-nav.open .section-nav-list {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.nav-label {
+  background: white;
+  border: 1px solid #dde1eb;
+  border-right: none;
+  border-radius: 20px 0 0 20px;
+  padding: 8px 14px 8px 18px;
+  font-size: 13.5px;
+  cursor: pointer;
+  direction: rtl;
+  text-align: right;
+  font-family: inherit;
+  color: var(--ink);
+  box-shadow: -3px 2px 12px rgba(0,0,0,0.1);
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.nav-label.active {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+  font-weight: 700;
+}
+
+.nav-label:active { opacity: 0.75; }
+
 @page { size: A4; margin: 14mm 12mm; }
 
 @media print {
@@ -315,7 +401,7 @@ hr.divider {
 </div>
 
 <!-- SECTION 1 -->
-<div class="section">
+<div class="section" id="s1">
   <div class="section-header">
     <div class="section-num">1</div>
     <h2>ברכות השחר עדות המזרח</h2>
@@ -378,7 +464,7 @@ hr.divider {
 </div>
 
 <!-- SECTION 2 -->
-<div class="section">
+<div class="section" id="s2">
   <div class="section-header">
     <div class="section-num">2</div>
     <h2>סדר הנחת תפילין לספרדים</h2>
@@ -428,7 +514,7 @@ hr.divider {
 </div>
 
 <!-- SECTION 3 -->
-<div class="section">
+<div class="section" id="s3">
   <div class="section-header">
     <div class="section-num">3</div>
     <h2>התיקון הכללי</h2>
@@ -657,7 +743,7 @@ hr.divider {
 </div>
 
 <!-- SECTION 4 -->
-<div class="section">
+<div class="section" id="s4">
   <div class="section-header">
     <div class="section-num">4</div>
     <h2>נשמת כל חי – נוסח עדות המזרח</h2>
@@ -682,7 +768,7 @@ hr.divider {
 </div>
 
 <!-- SECTION 5 -->
-<div class="section">
+<div class="section" id="s5">
   <div class="section-header">
     <div class="section-num">5</div>
     <h2>תפילה להמתקת הדינים</h2>
@@ -693,7 +779,7 @@ hr.divider {
 </div>
 
 <!-- SECTION 6 -->
-<div class="section">
+<div class="section" id="s6">
   <div class="section-header">
     <div class="section-num">6</div>
     <h2>דברים פרק ל</h2>
@@ -723,6 +809,11 @@ hr.divider {
     </div>
   </div>
 </div>
+
+<nav class="section-nav no-print" id="sectionNav">
+  <div class="section-nav-list" id="navList"></div>
+  <div class="section-nav-track" id="navTrack"></div>
+</nav>
 
 <button class="settings-btn no-print" id="settingsBtn" aria-label="הגדרות גודל טקסט" title="גודל טקסט">
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -793,6 +884,102 @@ if ('serviceWorker' in navigator) {
       panel.classList.remove('open');
     }
   });
+})();
+
+(function () {
+  var SECTIONS = [
+    { id: 's1', label: 'ברכות השחר' },
+    { id: 's2', label: 'הנחת תפילין' },
+    { id: 's3', label: 'התיקון הכללי' },
+    { id: 's4', label: 'נשמת כל חי' },
+    { id: 's5', label: 'המתקת הדינים' },
+    { id: 's6', label: 'דברים פרק ל' },
+  ];
+
+  var nav = document.getElementById('sectionNav');
+  var track = document.getElementById('navTrack');
+  var list = document.getElementById('navList');
+  var hideTimer = null;
+  var dots = [];
+  var labelBtns = [];
+
+  SECTIONS.forEach(function (s, i) {
+    var dot = document.createElement('div');
+    dot.className = 'nav-dot';
+    track.appendChild(dot);
+    dots.push(dot);
+
+    var btn = document.createElement('button');
+    btn.className = 'nav-label';
+    btn.textContent = s.label;
+    btn.addEventListener('click', function () {
+      var target = document.getElementById(s.id);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      scheduleHide(1200);
+    });
+    list.appendChild(btn);
+    labelBtns.push(btn);
+  });
+
+  function showNav() {
+    nav.classList.add('open');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(function () { nav.classList.remove('open'); }, 2600);
+  }
+
+  function scheduleHide(ms) {
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(function () { nav.classList.remove('open'); }, ms || 2600);
+  }
+
+  track.addEventListener('click', function () {
+    nav.classList.contains('open') ? nav.classList.remove('open') : showNav();
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!nav.contains(e.target)) nav.classList.remove('open');
+  });
+
+  var lastY = window.scrollY;
+  var lastT = Date.now();
+
+  window.addEventListener('scroll', function () {
+    var now = Date.now();
+    var dt = now - lastT;
+    if (dt > 0) {
+      var vel = Math.abs(window.scrollY - lastY) / dt;
+      if (vel > 0.7) showNav();
+    }
+    lastY = window.scrollY;
+    lastT = now;
+    updateActive();
+  }, { passive: true });
+
+  var activeSectionId = SECTIONS[0].id;
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        activeSectionId = entry.target.id;
+        updateActive();
+      }
+    });
+  }, { rootMargin: '-20% 0px -60% 0px' });
+
+  SECTIONS.forEach(function (s) {
+    var el = document.getElementById(s.id);
+    if (el) observer.observe(el);
+  });
+
+  function updateActive() {
+    SECTIONS.forEach(function (s, i) {
+      var on = s.id === activeSectionId;
+      dots[i].classList.toggle('active', on);
+      labelBtns[i].classList.toggle('active', on);
+    });
+  }
+
+  updateActive();
 })();
 </script>
 
