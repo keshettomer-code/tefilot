@@ -33,7 +33,7 @@
 body {
   font-family: 'Frank Ruhl Libre', 'FrankRuhlLibre', serif;
   direction: rtl;
-  font-size: calc(13pt * var(--text-scale));
+  font-size: calc(20pt * var(--text-scale));
   line-height: 1.7;
   color: var(--ink);
   margin: 0;
@@ -106,14 +106,14 @@ body {
 
 .prayer {
   margin: 0 0 14px;
-  font-size: calc(13.5pt * var(--text-scale));
+  font-size: calc(21pt * var(--text-scale));
   line-height: 1.85;
 }
 
 .instruction {
   font-style: italic;
   color: #5a6178;
-  font-size: calc(11.5pt * var(--text-scale));
+  font-size: calc(18pt * var(--text-scale));
   margin: 14px 0 8px;
 }
 
@@ -123,7 +123,7 @@ body {
   padding: 10px 14px;
   border-radius: 4px;
   margin: 12px 0;
-  font-size: calc(11.5pt * var(--text-scale));
+  font-size: calc(18pt * var(--text-scale));
   color: #3a3320;
 }
 
@@ -143,12 +143,12 @@ body {
   padding: 6px 0;
   border-radius: 4px;
   margin-bottom: 10px;
-  font-size: calc(12.5pt * var(--text-scale));
+  font-size: calc(21pt * var(--text-scale));
 }
 
 .psalm-block p {
   margin: 0 0 4px;
-  font-size: calc(12.5pt * var(--text-scale));
+  font-size: calc(21pt * var(--text-scale));
   line-height: 1.75;
 }
 
@@ -332,7 +332,7 @@ hr.divider {
 
 @media (max-width: 600px) {
   body {
-    font-size: calc(16px * var(--text-scale));
+    font-size: calc(25px * var(--text-scale));
     padding: 0 12px calc(80px + env(safe-area-inset-bottom));
   }
 
@@ -373,25 +373,25 @@ hr.divider {
   }
 
   .prayer {
-    font-size: calc(16px * var(--text-scale));
+    font-size: calc(25px * var(--text-scale));
     line-height: 1.9;
   }
 
   .instruction {
-    font-size: calc(13.5px * var(--text-scale));
+    font-size: calc(21px * var(--text-scale));
   }
 
   .note {
-    font-size: calc(13.5px * var(--text-scale));
+    font-size: calc(21px * var(--text-scale));
     padding: 8px 12px;
   }
 
   .psalm-title {
-    font-size: calc(14.5px * var(--text-scale));
+    font-size: calc(25px * var(--text-scale));
   }
 
   .psalm-block p {
-    font-size: calc(14.5px * var(--text-scale));
+    font-size: calc(25px * var(--text-scale));
   }
 }
 </style>
@@ -447,9 +447,9 @@ hr.divider {
 
     <p class="prayer">בָּרוּךְ אַתָּה יְהוָֹה, אֱלֹהֵֽינוּ מֶֽלֶךְ הָעוֹלָם, עוֹטֵר יִשְׂרָאֵל בְּתִפְאָרָה:</p>
 
-    <p class="prayer">בָּרוּךְ אַתָּה יְהוָֹה, אֱלֹהֵֽינוּ מֶֽלֶךְ הָעוֹלָם, שֶׁלֹּא עָשַׂנִי גוֹי <span style="font-style:italic;color:#5a6178;font-size:11pt;">(האשה אומרת: גּוֹיָה)</span>:</p>
+    <p class="prayer">בָּרוּךְ אַתָּה יְהוָֹה, אֱלֹהֵֽינוּ מֶֽלֶךְ הָעוֹלָם, שֶׁלֹּא עָשַׂנִי גוֹי <span style="font-style:italic;color:#5a6178;font-size:0.85em;">(האשה אומרת: גּוֹיָה)</span>:</p>
 
-    <p class="prayer">בָּרוּךְ אַתָּה יְהוָֹה, אֱלֹהֵֽינוּ מֶֽלֶךְ הָעוֹלָם, שֶׁלֹּא עָשַׂנִי עָבֶד <span style="font-style:italic;color:#5a6178;font-size:11pt;">(האשה אומרת: שִׁפְחָה)</span>:</p>
+    <p class="prayer">בָּרוּךְ אַתָּה יְהוָֹה, אֱלֹהֵֽינוּ מֶֽלֶךְ הָעוֹלָם, שֶׁלֹּא עָשַׂנִי עָבֶד <span style="font-style:italic;color:#5a6178;font-size:0.85em;">(האשה אומרת: שִׁפְחָה)</span>:</p>
 
     <div class="instruction">האיש מברך:</div>
     <p class="prayer">בָּרוּךְ אַתָּה יְהוָֹה, אֱלֹהֵֽינוּ מֶֽלֶךְ הָעוֹלָם, שֶׁלֹּא עָשַׂנִי אִשָּׁה:</p>
@@ -503,7 +503,7 @@ hr.divider {
 
     <div class="instruction">(יכוון בקריאת שמע זו לקיים מצוות יחוד השם, שהשם הוא האלוה שלנו והוא אחד)</div>
 
-    <p class="prayer">שְׁמַע יִשְׂרָאֵל יְהֹוָה אֱלֹהֵינוּ יְהֹוָה אֶחָד:<br><span style="font-size:0.85em;">(בלחש:) בָּרוּךְ, שֵּׁם כְּבוֹד מַלְכוּתוֹ, לְעוֹלָם וָעֶד:</span></p>
+    <p class="prayer">שְׁמַע יִשְׂרָאֵל יְהֹוָה אֱלֹהֵינוּ יְהֹוָה אֶחָד:<br><span>(בלחש:) בָּרוּךְ, שֵּׁם כְּבוֹד מַלְכוּתוֹ, לְעוֹלָם וָעֶד:</span></p>
 
     <p class="prayer">וְאָהַבְתָּ אֵת יְהֹוָה אֱלֹהֶיךָ בְּכָל לְבָבְךָ וּבְכָל נַפְשְׁךָ וּבְכָל מְאֹדֶךָ. וְהָיוּ הַדְּבָרִים הָאֵלֶּה אֲשֶׁר אָנֹכִי מְצַוְּךָ הַיּוֹם (יפסיק מעט) עַל לְבָבֶךָ. וְשִׁנַּנְתָּם לְבָנֶיךָ וְדִבַּרְתָּ בָּם בְּשִׁבְתְּךָ בְּבֵיתֶךָ וּבְלֶכְתְּךָ בַדֶּרֶךְ וּבְשָׁכְבְּךָ וּבְקוּמֶךָ. וּקְשַׁרְתָּם לְאוֹת עַל יָדֶךָ וְהָיוּ לְטֹטָפֹת בֵּין עֵינֶיךָ. וּכְתַבְתָּם עַל מְזוּזֹת בֵּיתֶךָ וּבִשְׁעָרֶיךָ:</p>
 
@@ -856,7 +856,7 @@ hr.divider {
 
 <div class="settings-panel no-print" id="settingsPanel">
   <div class="settings-panel-title">גודל טקסט</div>
-  <button class="size-option" data-scale="0.85">
+  <button class="size-option" data-scale="0.8">
     <span class="size-option-label">קטן</span>
     <span class="size-option-preview" style="font-size:11px;">א</span>
   </button>
@@ -864,11 +864,11 @@ hr.divider {
     <span class="size-option-label">רגיל</span>
     <span class="size-option-preview" style="font-size:13px;">א</span>
   </button>
-  <button class="size-option" data-scale="1.25">
+  <button class="size-option" data-scale="1.2">
     <span class="size-option-label">גדול</span>
     <span class="size-option-preview" style="font-size:16px;">א</span>
   </button>
-  <button class="size-option" data-scale="1.55">
+  <button class="size-option" data-scale="1.4">
     <span class="size-option-label">גדול מאוד</span>
     <span class="size-option-preview" style="font-size:20px;">א</span>
   </button>
@@ -882,7 +882,7 @@ if ('serviceWorker' in navigator) {
 }
 
 (function () {
-  var STORAGE_KEY = 'textScale';
+  var STORAGE_KEY = 'textScale2';
   var btn = document.getElementById('settingsBtn');
   var panel = document.getElementById('settingsPanel');
   var options = panel.querySelectorAll('.size-option');
