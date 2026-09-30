@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tefillot-v6';
+const CACHE_NAME = 'tefillot-v7';
 const ASSETS = [
   './index.html',
   './manifest.json',

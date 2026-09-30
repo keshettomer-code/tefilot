@@ -992,6 +992,33 @@ if ('serviceWorker' in navigator) {
     updateActive();
   }, { passive: true });
 
+  // Swipe leftward from the right edge — pulls the nav out from the side it lives on
+  var EDGE_ZONE = 48;      // px inward from the right edge where a swipe may start
+  var SWIPE_DISTANCE = 55; // px of leftward travel that counts as a pull
+  var SWIPE_SLOP = 35;     // px of vertical drift tolerated before we call it a scroll
+  var swipe = null;
+
+  window.addEventListener('touchstart', function (e) {
+    if (e.touches.length !== 1) { swipe = null; return; }
+    var t = e.touches[0];
+    if (window.innerWidth - t.clientX > EDGE_ZONE) { swipe = null; return; }
+    swipe = { x: t.clientX, y: t.clientY };
+  }, { passive: true });
+
+  window.addEventListener('touchmove', function (e) {
+    if (!swipe || e.touches.length !== 1) return;
+    var t = e.touches[0];
+    if (Math.abs(t.clientY - swipe.y) > SWIPE_SLOP) { swipe = null; return; }
+    if (swipe.x - t.clientX >= SWIPE_DISTANCE) {
+      swipe = null;
+      if (e.cancelable) e.preventDefault(); // keep Safari's edge gesture out of it
+      showNav();
+    }
+  }, { passive: false });
+
+  window.addEventListener('touchend', function () { swipe = null; }, { passive: true });
+  window.addEventListener('touchcancel', function () { swipe = null; }, { passive: true });
+
   var activeSectionId = SECTIONS[0].id;
 
   var observer = new IntersectionObserver(function (entries) {
