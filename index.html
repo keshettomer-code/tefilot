@@ -973,18 +973,22 @@ if ('serviceWorker' in navigator) {
     if (!nav.contains(e.target)) nav.classList.remove('open');
   });
 
-  var lastY = window.scrollY;
-  var lastT = Date.now();
+  var BURST_WINDOW = 250;   // ms — how far back we look
+  var BURST_DISTANCE = 420; // px — ground a burst must cover inside that window
+  var BURST_MIN_SPAN = 90;  // ms — ignore a single fast frame, demand sustained motion
+  var samples = [{ y: window.scrollY, t: Date.now() }];
 
   window.addEventListener('scroll', function () {
     var now = Date.now();
-    var dt = now - lastT;
-    if (dt > 0) {
-      var vel = Math.abs(window.scrollY - lastY) / dt;
-      if (vel > 0.7) showNav();
+    var y = window.scrollY;
+    samples.push({ y: y, t: now });
+    while (samples.length > 2 && now - samples[0].t > BURST_WINDOW) samples.shift();
+
+    var oldest = samples[0];
+    if (now - oldest.t >= BURST_MIN_SPAN && Math.abs(y - oldest.y) >= BURST_DISTANCE) {
+      samples = [{ y: y, t: now }];
+      showNav();
     }
-    lastY = window.scrollY;
-    lastT = now;
     updateActive();
   }, { passive: true });
 
